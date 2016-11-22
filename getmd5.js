@@ -1,4 +1,4 @@
-
+// 在网站源代码中获得的明文密码加密函数
 sv=0;sv1=0;v6='http://ip6.sxlg:9002/v6                                 ';myv6ip='                                       ';v4serip='218.195.105.242';m46=0;v46ip='192.168.228.227'                        ;
 ps=1;pid='1';calg='12345678';
 function safe_add(x,y){
@@ -169,30 +169,25 @@ else{tmpchar=pid+f1.upass.value+calg;f0.upass.value=calcMD5(tmpchar)+calg+pid;f0
 document.f0.submit();
 return false;}
 
-//写入内容  
-/*function WriteDemo(data){     
-        var fso = new ActiveXObject("Scripting.FileSystemObject");  
-		var f = fso.OpenTextFile("./pass", 8, true, -1);  
-			f.Write(data);     
-			f.Close();  
-		}*/
-//if(document.readyState == "complete"){
-for(f=7; f<9; f++){
+// 打印房间加密密码
+for(f=1; f<9; f++){
 	for(j=1; j<6; j++){
 		for(k=1; k<9; k++){
 			room=k + '0' + j + f;
 			tmpchar=pid+room+calg;
 			pass=calcMD5(tmpchar)+calg+pid;
-			//document.write(pass + "</br>");
+			//document.write(pass + "</br>");// 打印
 		}
 	}
 }
-for(year=4; year<7; year++){
+
+// 打印日期加密密码
+for(year=5; year<7; year++){
 	if(year == 6){
 		mon = 1;
-		tomon = 6;
-	}else if(year == 4){
-		mon = 9;
+		tomon = 12;
+	}else if(year == 5){
+		mon = 4;
 		tomon = 13;
 	}else{
 		mon = 1;
@@ -211,8 +206,8 @@ for(year=4; year<7; year++){
 			//date = "20150509"
 			tmpchar=pid+date+calg;
 			pass=calcMD5(tmpchar)+calg+pid;
-			document.write(pass + "</br>");
+			//document.write(date + "</br>");// 打印日期明文
+			document.write(pass + "</br>");// 打印
 		}
 	}
 }
-//}
